@@ -3,6 +3,7 @@ import Button from "../../components/button";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
+import CreateLinksModal from "./create-links-modal";
 
 interface TripLinks {
   id: string;
@@ -19,6 +20,14 @@ export default function ImportantLinks() {
       .get(`trips/${tripId}/links`)
       .then((response) => setLinks(response.data.links));
   }, [tripId]);
+
+  const [isCreateLinksModalOpen, setIsCreateLinksModalOpen] = useState(false);
+  function openCreateLinksModal() {
+    setIsCreateLinksModalOpen(true);
+  }
+  function closeCreateLinksModal() {
+    setIsCreateLinksModalOpen(false);
+  }
   return (
     <div className="space-y-6 ">
       <h2 className="font-semibold text-xl">Links importantes</h2>
@@ -32,7 +41,8 @@ export default function ImportantLinks() {
                     {link.title}
                   </span>
                   <a
-                    href="#"
+                    href={link.url}
+                    target="_blank"
                     className="text-zinc-400 hover:text-zinc-200 block text-xs truncate"
                   >
                     {link.url}
@@ -53,10 +63,13 @@ export default function ImportantLinks() {
         )}
       </div>
 
-      <Button variant="secondary" size="full">
+      <Button onClick={openCreateLinksModal} variant="secondary" size="full">
         <PlusIcon className="size-5" />
         Cadastrar novo link
       </Button>
+      {isCreateLinksModalOpen && (
+        <CreateLinksModal closeCreateLinksModal={closeCreateLinksModal} />
+      )}
     </div>
   );
 }
