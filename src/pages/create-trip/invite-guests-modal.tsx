@@ -7,6 +7,7 @@ interface InviteGuestsModalProps {
   emailToInvite: string[];
   addNewEmailToInvite: (event: FormEvent<HTMLFormElement>) => void;
   removeEmailToInvites: (email: string) => void;
+  errorMessage: string;
 }
 
 export default function InviteGuestsModal({
@@ -14,6 +15,7 @@ export default function InviteGuestsModal({
   closeGuestsModal,
   emailToInvite,
   removeEmailToInvites,
+  errorMessage,
 }: InviteGuestsModalProps) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
@@ -66,6 +68,7 @@ export default function InviteGuestsModal({
             Convidar <PlusIcon className="size-5" />
           </Button>
         </form>
+        <span className="text-xs text-red-400 px-2">{errorMessage}</span>
       </div>
     </div>
   );

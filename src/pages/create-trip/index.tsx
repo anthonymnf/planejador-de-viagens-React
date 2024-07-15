@@ -21,6 +21,7 @@ function CreateTripPage() {
   const [destination, setDestination] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [ownerEmail, setOwnerEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
     DateRange | undefined
@@ -48,6 +49,7 @@ function CreateTripPage() {
 
   function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setErrorMessage("");
     const data = new FormData(event.currentTarget);
     const email = data.get("email")?.toString();
     if (!email) {
@@ -55,6 +57,7 @@ function CreateTripPage() {
     }
     // Implementar mensagem de erro aq
     if (emailToInvite.includes(email)) {
+      setErrorMessage("Esse e-mail já foi convidado!");
       return;
     }
     setEmailToInvite([...emailToInvite, email]);
@@ -146,6 +149,7 @@ function CreateTripPage() {
           closeGuestsModal={closeGuestsModal}
           emailToInvite={emailToInvite}
           removeEmailToInvites={removeEmailToInvites}
+          errorMessage={errorMessage}
         />
       )}
       {isConfirmTripModalOpen && (
