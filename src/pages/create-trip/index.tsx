@@ -21,13 +21,20 @@ function CreateTripPage() {
   const [destination, setDestination] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [ownerEmail, setOwnerEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessageEmail, setErrorMessageEmail] = useState("");
+  const [errorMessageStep1, setErrorMessageStep1] = useState("");
+  const [errorMessageConfirmTrip, setErrorMessageConfirmTrip] = useState("");
 
   const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
     DateRange | undefined
   >();
 
   function openGuestsInput() {
+    if (destination === "" || eventStartAndEndDates == undefined) {
+      setErrorMessageStep1("Por favor, preencha todos os campos");
+      return;
+    }
+    setErrorMessageStep1("");
     setIsGuestsInputOpen(true);
   }
   function closeGuestsInput() {
@@ -49,15 +56,14 @@ function CreateTripPage() {
 
   function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setErrorMessage("");
+    setErrorMessageEmail("");
     const data = new FormData(event.currentTarget);
     const email = data.get("email")?.toString();
     if (!email) {
       return;
     }
-    // Implementar mensagem de erro aq
     if (emailToInvite.includes(email)) {
-      setErrorMessage("Esse e-mail já foi convidado!");
+      setErrorMessageEmail("Esse e-mail já foi convidado!");
       return;
     }
     setEmailToInvite([...emailToInvite, email]);
@@ -85,8 +91,16 @@ function CreateTripPage() {
     }
 
     if (!ownerName || !ownerEmail) {
+      setErrorMessageConfirmTrip("Por favor, informe o seu nome e email");
       return;
     }
+    if (emailToInvite.includes(ownerEmail)) {
+      setErrorMessageConfirmTrip(
+        "Esse e-mail faz parte da lista de convidados, informe um email diferente!"
+      );
+      return;
+    }
+    setErrorMessageConfirmTrip("");
 
     const response = await api.post("/trips", {
       destination,
@@ -119,6 +133,7 @@ function CreateTripPage() {
             setDestination={setDestination}
             eventStartAndEndDates={eventStartAndEndDates}
             setEventStartAndEndDates={setEventStartAndEndDates}
+            errorMessageStep1={errorMessageStep1}
           />
 
           {isGuestsInputOpen && (
@@ -149,7 +164,7 @@ function CreateTripPage() {
           closeGuestsModal={closeGuestsModal}
           emailToInvite={emailToInvite}
           removeEmailToInvites={removeEmailToInvites}
-          errorMessage={errorMessage}
+          errorMessage={errorMessageEmail}
         />
       )}
       {isConfirmTripModalOpen && (
@@ -161,6 +176,7 @@ function CreateTripPage() {
           eventEndDate={eventStartAndEndDates?.to?.toString()}
           eventStartDate={eventStartAndEndDates?.from?.toString()}
           destination={destination}
+          errorMessageConfirmTrip={errorMessageConfirmTrip}
         />
       )}
     </div>

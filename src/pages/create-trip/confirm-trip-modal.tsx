@@ -11,6 +11,7 @@ interface ConfirmTripModalProps {
   destination: string;
   eventStartDate: string | undefined;
   eventEndDate: string | undefined;
+  errorMessageConfirmTrip: string;
 }
 
 export default function ConfirmTripModal({
@@ -21,6 +22,7 @@ export default function ConfirmTripModal({
   destination,
   eventEndDate,
   eventStartDate,
+  errorMessageConfirmTrip,
 }: ConfirmTripModalProps) {
   const displayedDate =
     eventStartDate && eventEndDate
@@ -73,6 +75,11 @@ export default function ConfirmTripModal({
               onChange={(event) => setOwnerEmail(event.target.value)}
             />
           </div>
+          {errorMessageConfirmTrip !== "" && (
+            <span className="text-xs text-red-400 px-2">
+              {errorMessageConfirmTrip}
+            </span>
+          )}
           <Button type="submit" size="full">
             Confirmar criação da viagem
           </Button>
