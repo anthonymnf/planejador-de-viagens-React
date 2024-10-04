@@ -1,6 +1,6 @@
 import { CalendarIcon, TagIcon, XIcon } from "lucide-react";
 import Button from "../../components/button";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { api } from "../../lib/axios";
 import { useParams } from "react-router-dom";
 
@@ -12,15 +12,32 @@ export default function CreateActivityModal({
   closeCreateActivityModal,
 }: CreateActivityModalProps) {
   const { tripId } = useParams();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   async function createActivity(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const occurs_at = data.get("occurs-at")?.toString();
     const title = data.get("title")?.toString();
-    await api.post(`/trips/${tripId}/activities`, { title, occurs_at });
-    // closeCreateActivityModal();
-    window.document.location.reload();
+
+    // Verificação para garantir que ambos os campos estão preenchidos
+    if (!title || !occurs_at) {
+      setErrorMessage(
+        "Por favor, preencha todos os campos antes de confirmar."
+      );
+      return;
+    }
+
+    try {
+      await api.post(`/trips/${tripId}/activities`, { title, occurs_at });
+      window.document.location.reload();
+    } catch (error) {
+      setErrorMessage(
+        "Ocorreu um erro ao salvar a atividade. Tente novamente."
+      );
+    }
   }
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="w-[645px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
@@ -57,7 +74,10 @@ export default function CreateActivityModal({
               />
             </div>
           </div>
-
+          {/* Exibição da mensagem de erro, caso ocorra */}
+          {errorMessage && (
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+          )}
           <Button type="submit" size="full">
             Salvar atividade
           </Button>
