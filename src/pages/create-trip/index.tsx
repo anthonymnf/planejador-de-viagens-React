@@ -34,6 +34,20 @@ function CreateTripPage() {
       setErrorMessageStep1("Por favor, preencha todos os campos");
       return;
     }
+    // Verifica se a data de início do evento está definida
+    if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
+      setErrorMessageStep1("Por favor, preencha todos os campos");
+      return;
+    }
+
+    // Verifica se a data de início do evento é anterior à data atual
+    const currentDate = new Date(); // Data atual
+    if (eventStartAndEndDates.from < currentDate) {
+      setErrorMessageStep1(
+        "A data de início não pode ser anterior à data atual."
+      );
+      return;
+    }
     setErrorMessageStep1("");
     setIsGuestsInputOpen(true);
   }
