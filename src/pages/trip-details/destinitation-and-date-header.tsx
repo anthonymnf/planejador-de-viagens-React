@@ -49,7 +49,12 @@ export default function DestinitationAndDateHeader() {
         </Button>
       </div>
       {isChangeModalOpen && (
-        <ChangeLocalDateModal closeChangeModal={closeChangeModal} />
+        <ChangeLocalDateModal
+          closeChangeModal={closeChangeModal}
+          currentDestination={trip?.destination}
+          currentStartDate={trip?.starts_at}
+          currentEndDate={trip?.ends_at}
+        />
       )}
     </div>
   );
