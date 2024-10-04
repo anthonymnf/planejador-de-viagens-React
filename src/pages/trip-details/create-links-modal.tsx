@@ -1,6 +1,6 @@
 import { Link2Icon, TagIcon, XIcon } from "lucide-react";
 import Button from "../../components/button";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { api } from "../../lib/axios";
 import { useParams } from "react-router-dom";
 
@@ -12,15 +12,27 @@ export default function CreateLinksModal({
   closeCreateLinksModal,
 }: CreateLinkModalProps) {
   const { tripId } = useParams();
+  const [errorMessage, setErrorMessage] = useState<string>(""); // Estado para mensagem de erro
+
   async function createLink(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setErrorMessage(""); // Limpar mensagem de erro
+
     const data = new FormData(event.currentTarget);
     const title = data.get("title")?.toString();
     const url = data.get("url")?.toString();
+
+    // Verificação se ambos os campos estão preenchidos
+    if (!title || !url) {
+      setErrorMessage("Por favor, preencha tanto o título quanto a URL.");
+      return;
+    }
+
+    // Enviar os dados para a API
     await api.post(`/trips/${tripId}/links`, { title, url });
-    // closeCreateLinkModal();
-    window.document.location.reload();
+    window.document.location.reload(); // Recarregar a página após a criação do link
   }
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="w-[645px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
@@ -55,6 +67,11 @@ export default function CreateLinksModal({
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
             />
           </div>
+
+          {/* Exibir mensagem de erro se houver */}
+          {errorMessage && (
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+          )}
 
           <Button type="submit" size="full">
             Salvar link
