@@ -13,7 +13,7 @@ export default function InviteGuestsStep({
   openGuestsModal,
 }: InviteGuestsStepProps) {
   return (
-    <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center gap-3 shadow-shape">
+    <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center gap-3 shadow-shape flex-wrap max-sm:h-auto max-sm:py-4">
       <button
         type="button"
         onClick={openGuestsModal}

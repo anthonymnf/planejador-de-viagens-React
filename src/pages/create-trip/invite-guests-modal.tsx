@@ -53,15 +53,15 @@ export default function InviteGuestsModal({
         <div className="w-full h-px bg-zinc-800" />
         <form
           onSubmit={addNewEmailToInvite}
-          className="bg-zinc-950 p-2.5 border border-zinc-800 rounded-lg flex items-center gap-2"
+          className="bg-zinc-950 p-2.5 border border-zinc-800 rounded-lg flex items-center gap-2 max-md:block"
         >
-          <div className="px-2 flex items-center flex-1 gap-2">
+          <div className="px-2 flex items-center flex-1 gap-2 max-md:mb-3">
             <AtSignIcon className="size-5 text-zinc-400 " />
             <input
               type="email"
               name="email"
               placeholder="Digite o email do convidado"
-              className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
+              className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1 truncate "
             />
           </div>
           <Button type="submit">
