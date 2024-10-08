@@ -1,4 +1,7 @@
-# ![alt text](image-1.png)
+![HomePage](https://github.com/user-attachments/assets/28ed4599-75be-47a1-80a7-84e8880b8b63)
+
+
+# ![plann.er](https://github.com/user-attachments/assets/661b2aef-880d-488d-9976-65ed352dca1b)
 
 Um planejador de viagens onde é possível organizar seu itinerário, gerenciar tarefas e compartilhar com convidados, tornando a experiência mais colaborativa e eficiente.
 
