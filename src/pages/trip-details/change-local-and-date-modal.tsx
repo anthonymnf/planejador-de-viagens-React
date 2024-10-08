@@ -157,6 +157,9 @@ export default function ChangeLocalDateModal({
                   mode="range"
                   selected={eventStartAndEndDates}
                   onSelect={setEventStartAndEndDates}
+                  modifiersStyles={{
+                    selected: { backgroundColor: "#bef264", color: "#09090b" },
+                  }}
                 />
               </div>
             </div>
