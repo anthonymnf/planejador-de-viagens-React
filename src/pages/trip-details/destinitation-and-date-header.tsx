@@ -33,7 +33,7 @@ export default function DestinitationAndDateHeader() {
     setIsChangeModalOpen(false);
   }
   return (
-    <div className="px-4 h-16 bg-zinc-900 rounded-xl flex justify-between items-center shadow-shape">
+    <div className="px-4 h-16 bg-zinc-900 rounded-xl flex justify-between items-center shadow-shape flex-wrap max-sm:h-auto max-sm:py-4 max-sm:gap-2">
       <div className="flex items-center gap-2">
         <MapPinIcon className="size-5 text-zinc-400" />
         <span className="text-zinc-100">{trip?.destination}</span>
@@ -44,10 +44,10 @@ export default function DestinitationAndDateHeader() {
           <span className="text-zinc-100">{displayedDate}</span>
         </div>
         <div className="bg-zinc-800 w-px h-6" />
-        <Button onClick={openChangeModal} variant="secondary">
-          Alterar local/data <Settings2Icon className="size-5" />
-        </Button>
       </div>
+      <Button onClick={openChangeModal} variant="secondary">
+        Alterar local/data <Settings2Icon className="size-5" />
+      </Button>
       {isChangeModalOpen && (
         <ChangeLocalDateModal
           closeChangeModal={closeChangeModal}
