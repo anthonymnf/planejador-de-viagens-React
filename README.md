@@ -23,6 +23,10 @@ Este projeto foi idealizado e iniciado no evento **NLW Journey** da RocketSeat. 
 - Envio de e-mails aos convidados (implementado no back-end).
 - Correção de bugs no front-end e back-end.
 
+🎥 Demonstração
+
+Confira o projeto em funcionamento através deste vídeo: [Clique aqui para assistir](https://drive.google.com/file/d/1TXfkjAIhmOXMNXbzj5h541z4kQmYZulj/view?usp=drive_link).
+
 ### ⚙️ Pré-requisitos
 
 Para executar o projeto, você precisará ter as seguintes ferramentas instaladas em sua máquina:
@@ -34,7 +38,7 @@ Para executar o projeto, você precisará ter as seguintes ferramentas instalada
 #### Clonando o repositório:
 
 ```bash
-git clone https://github.com/anthonymnf/front-end-planejador-de-viagens.git
+git clone https://github.com/anthonymnf/planejador-de-viagens-React.git
 ```
 
 #### Instalando dependências:
